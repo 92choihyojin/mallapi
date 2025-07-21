@@ -14,4 +14,10 @@ public interface ProductService {
 	public Long register(ProductDTO productDTO);
 	
 	public ProductDTO get(Long pno);
+	
+	public void modify(ProductDTO productDTO);
+
+	public void remove(Long pno);
 }
+
+
