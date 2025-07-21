@@ -32,7 +32,7 @@ class MallapiApplicationTests {
 	private TodoService todoService;
 
 	// Todo 테이블에 Insert 기능 = jpa.save(entity) 기능 같다
-	// @Test
+	 @Test
 	void contextLoads() {
 
 		for (int i = 1; i <= 100; i++) {
