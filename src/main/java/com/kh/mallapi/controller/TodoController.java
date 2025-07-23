@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
+
 //생성자 의존성 주입
 @RequiredArgsConstructor
 @Log4j2
