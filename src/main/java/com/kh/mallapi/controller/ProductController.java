@@ -45,15 +45,12 @@ public class ProductController {
 		Long pno = productService.register(productDTO);
 		try {
 			Thread.sleep(3000);
-			} catch (InterruptedException e) { e.printStackTrace();
-			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return Map.of("result", pno);
 	}
 
-	@GetMapping("/view/{fileName}")
-	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
-		return fileUtil.getFile(fileName);
-	}
 
 	@GetMapping("/list")
 	public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
@@ -101,7 +98,6 @@ public class ProductController {
 		return Map.of("RESULT", "SUCCESS");
 	}
 
-	
 	@DeleteMapping("/{pno}")
 	public Map<String, String> remove(@PathVariable("pno") Long pno) {
 		// 삭제해야 할 파일들 알아내기
@@ -112,4 +108,9 @@ public class ProductController {
 		return Map.of("RESULT", "SUCCESS");
 	}
 
+	// 커스텀 파일 
+	@GetMapping("/view/{fileName}")
+	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
+		return fileUtil.getFile(fileName);
+	}
 }

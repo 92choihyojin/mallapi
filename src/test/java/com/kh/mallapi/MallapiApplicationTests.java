@@ -32,7 +32,7 @@ class MallapiApplicationTests {
 	private TodoService todoService;
 
 	// Todo 테이블에 Insert 기능 = jpa.save(entity) 기능 같다
-	 @Test
+	@Test
 	void contextLoads() {
 
 		for (int i = 1; i <= 100; i++) {
@@ -40,15 +40,14 @@ class MallapiApplicationTests {
 			todoRepository.save(todo);
 		}
 	}
-	
-	
+
 	// Todo , get select * from todo where tno = ? === findById(id)
 	// @Test
 	void testRead() {
 		Long tno = 200L;
 		Optional<Todo> result = todoRepository.findById(tno);
 		Todo todo = result.orElseThrow();
-		
+
 		log.info(todo);
 	}
 
