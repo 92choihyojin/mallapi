@@ -9,10 +9,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.kh.mallapi.security.filter.JWTCheckFilter;
 import com.kh.mallapi.security.handler.APILoginFailHandler;
 import com.kh.mallapi.security.handler.APILoginSuccessHandler;
 
@@ -23,6 +25,11 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @RequiredArgsConstructor
 public class CustomSecurityConfig {
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -49,7 +56,10 @@ public class CustomSecurityConfig {
 			// 로그인 실패 시 실행될 핸들러 객체를 지정 코드
 			config.failureHandler(new APILoginFailHandler());
 		});
-		
+
+		// JWT 체크 추가
+		http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
+
 		return http.build();
 	}
 
@@ -59,16 +69,14 @@ public class CustomSecurityConfig {
 		configuration.setAllowedOriginPatterns(Arrays.asList("*"));
 		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE"));
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+
 		// 자격 증명(쿠키, 인증 헤더 등)을 CORS 요청과 함께 보낼 수 있도록 허용
 		configuration.setAllowCredentials(true);
+
 		// URL 패턴에 따라 CORS 설정을 매핑할 수 있는 객체
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
 }

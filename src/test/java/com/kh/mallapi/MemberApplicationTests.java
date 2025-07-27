@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.kh.mallapi.domain.Member;
 import com.kh.mallapi.repository.MemberRepository;
-import com.kh.mallrestful.domain.MemberRole;
+import com.kh.mallapi.domain.MemberRole;
 
 import lombok.extern.log4j.Log4j2;
 

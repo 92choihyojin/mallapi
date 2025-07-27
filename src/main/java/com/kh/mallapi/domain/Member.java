@@ -3,7 +3,7 @@ package com.kh.mallapi.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kh.mallrestful.domain.MemberRole;
+import com.kh.mallapi.domain.MemberRole;
 
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;

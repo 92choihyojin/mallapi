@@ -113,4 +113,5 @@ public class ProductController {
 	public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName) {
 		return fileUtil.getFile(fileName);
 	}
+	
 }

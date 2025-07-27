@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,7 @@ import lombok.extern.log4j.Log4j2;
 @Transactional
 @Log4j2
 @RequiredArgsConstructor
+
 public class TodoServiceImpl implements TodoService {
 
 	// 생성자 의존성 주입
@@ -36,7 +39,7 @@ public class TodoServiceImpl implements TodoService {
 		Todo saveTodo = todoRepository.save(todo);
 		return saveTodo.getTno();
 	}
-
+	
 	@Override
 	public TodoDTO get(Long tno) {
 		java.util.Optional<Todo> result = todoRepository.findById(tno);
@@ -74,6 +77,7 @@ public class TodoServiceImpl implements TodoService {
 		// 1] 1페이지 10개 10개의 레코드가 있다
 		List<TodoDTO> dtoList = result.getContent().stream().map(todo -> modelMapper.map(todo, TodoDTO.class))
 				.collect(Collectors.toList());
+		
 		// 3] 전체갯수
 		long totalCount = result.getTotalElements();
 
